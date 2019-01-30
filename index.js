@@ -1,38 +1,43 @@
 const lostWord_HTML = document.querySelector(".lost_word_wrapper");
 
-const word = "Emancypacja";
+//FETCH //waiting for API_KEY from wordnik.com to create call for random word.. 
+const word = "Telephone";
+////////////////////////////////////////////////////////////////////////////////
 
 const upWord = word.toUpperCase();
 const readyWord = [...upWord];
 
-let tableOfSelectedLettersIndex = [];
+let SelectedLettersIndex = [];
 
 let wins = 0;
 let looses = 0;
 
+// check if stop the game - wins
 function checkIfWins() {
-   if (wins >= readyWord.length) console.log("wygrałeś");
-   else return;
+   if (wins >= readyWord.length) {
+      document.querySelector(".won").style.display = "block";
+   } else return;
+}
+
+// check if stop the game - lost
+function checkIfLooses() {
+   if (looses >= 10) {
+      document.querySelector(".lost").style.display = "block";
+   } else return;
 }
 
 //create array of indexes unique typed letters to count wins
 function checkIndex(index) {
-   if (tableOfSelectedLettersIndex.includes(index)) {
+   if (SelectedLettersIndex.includes(index)) {
       return;
    } else {
-      tableOfSelectedLettersIndex.push(index);
+      SelectedLettersIndex.push(index);
       wins++;
       checkIfWins();
    }
 }
 
-// check if stop the game
-function checkIfLooses() {
-   if (looses >= 10) console.log("przegrałeś, figurant wisi");
-   else return;
-}
-
-//rendering divs assigned to word letters
+//rendering divs assigned to letters
 for (let i = 0; i < readyWord.length; i++) {
    const div_HTML = document.createElement("div");
    div_HTML.className = "letter";
